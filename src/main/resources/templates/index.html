@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+   <head th:replace="layout :: head" ></head>
+   <body>
+      <script>
+         document.title = "Sellauto Home";
+      </script>
+      <!-- Navigation -->
+      <nav th:replace="layout :: nav"></nav>
+      <!-- Page Content -->
+      <div class="container car_container">
+         <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-lg-8">
+               <h5 class="my-4">The dedicated market place for buying &amp; selling among the UCM community!</h5>
+               <!-- Read me -->
+               <div class="card mb-4">
+                  <div class="card-body">
+                     <p class="card-text">
+                     <br>
+						Application Features include <br>
+						1. Users must register in the website. <br>
+						2. On successful registration, the user is directed to login page. <br>
+						3. On successful Login, the user is directed to profile page. <br>
+						4. Each user has a profile page which displays their past activities like posts and replies.  <br>
+						5. User can delete account by clicking Delete Profile. <br>
+						6. Seller can add, edit and delete post.<br>
+						7. Seller can view the count of likes for his post, along with list of people liked.
+						8. Buyer can view all posts and also filter on category, status , owner, location.<br>
+						9. Buyer can "like" a post. <br>
+						10. Buyer can reply to other's post via email.<br>
+						11. Buyer can search a post by postId.<br>
+						
+						Technology Details <br>
+						UI - Twitter Bootstrap 4, HTML5, CSS3, Thymeleaf <br>
+						Business - Spring Boot 2.0 REST API , JPA & Hibernate <br>
+						Database - MySQL <br>
+                     
+                     </p>
+                  </div>
+               </div>
+            </div>
+            <!-- Sidebar Widgets Column -->
+            <div class="col-lg-4">
+               <!-- Search Widget -->
+               <div class="" th:replace="layout :: search"></div>
+               <!-- Categories Widget -->
+               <div class="" th:replace="layout :: category"></div>
+                 <!-- Location Widget -->
+               <div class="" th:replace="layout :: location"></div>
+                 <!-- Status Widget -->
+               <div class="" th:replace="layout :: status"></div>
+            </div>
+         </div>
+      </div>
+      <!-- /.row -->
+      <!-- /.container -->
+      <!-- Footer -->
+      <footer th:replace="layout :: footer"></footer>
+   </body>
+</html>

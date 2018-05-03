@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout :: head" ></head>
+    <body>
+        <script>
+            document.title = "Sellauto Post";
+        </script>
+        <!-- Navigation -->
+        <nav th:replace="layout :: nav"></nav>
+        <!-- Page Content -->
+        <div class="container car_container">
+            <div class="row">
+                <!-- Post Content Column -->
+                <div class="col-lg-8">
+                    <!-- Title -->
+                    <h1 class="mt-4" th:text="${post.getTitle()}">Post Title</h1>
+                    <!-- Author -->
+                    <p class="lead">
+                        by
+                        <a th:href=    "@{'/posts/user/' + ${post.getUser().getId()}}">
+                        <span class="chip left" th:text="${post.getUser().getUsername()}">Post's author</span>
+                        </a>
+                    </p>
+                    <!-- Date/Time -->
+                    <span class="chip left" th:text="|Posted on : |+${post.displayParsedCreatedDate()}" ></span> <br>
+                    <span class="chip left" th:text="|Category : |+${post.getCategory()}" >Category</span><br>
+					<span class="chip left" th:text="|Status : |+${post.getStatus()}" >Status</span><br>
+                    <span class="chip left" th:text="|Location : |+${post.getUser().getLocation()}" >Location</span><br>
+                    <blockquote class="flow-text left" th:text="|Reply: | + ${replys.size()}">Number of reply</blockquote>
+                                     
+                    <hr>
+                    <!-- Preview Image -->
+                    <ul>
+                        <li th:each="file : ${files}"> 
+                            <a th:href="${file}" th:text="${file}" ></a>
+                            <br>            
+                            <img th:src="${file}" height="250" width = "250" alt = "image" />
+                        </li>
+                    </ul>
+                    <!-- Post Content -->
+                    <p class="lead"  th:text="${post.getContent()}" ></p>
+                    
+			       <!-- Liked Posts -->
+			      
+			      <div th:if="${message}">
+               <h5 th:text="${message}" style="color:red" ></h5>
+           		 </div>
+           		 
+			        <span th:if="${post.getUser().getId() != idUser}">
+			        <form th:action="@{/like}" method="post" >
+					<button type="submit"  class="btn btn-primary" >
+					  Like <span class="badge badge-light" th:text ="${likes.size()}">
+					  </span> </button>
+					   <input type="hidden" name="id_post" th:value="${post.getId()}"/> 
+					   <input type="hidden" name="id_user" th:value="${idUser}"/>
+					</form>
+					</span>
+					
+					 <!-- if post author is same as logged in user , disable like button -->
+					<span th:if="${post.getUser().getId() == idUser}">
+			        <form th:action="@{/like}" method="post" >
+					<button type="submit"  class="btn btn-primary" disabled >
+					  Like <span class="badge badge-light" th:text ="${likes.size()}">
+					  </span> </button>
+					   <input type="hidden" name="id_post" th:value="${post.getId()}"/> 
+					   <input type="hidden" name="id_user" th:value="${idUser}"/>
+					</form>
+					</span>
+					
+					 <span th:each="like : ${likes}" th:text="${like.getLikedUser()} + |,| " >  </span> <br>
+                  
+                    <!-- Show Edit/Delete links only of the post author is same as user logged in -->
+                    <span th:if="${post.getUser().getId() == idUser}">
+                    <a th:href="@{'/post/edit/' + ${post.getId()}}"> Edit</a> |  <a th:href="@{'/post/remove/' + ${post.getId()}}"> Delete</a> 
+                    </span>
+                    <!-- Replys -->
+                    <section th:if="${post.getUser().getId() != idUser}" >
+                        <div class="card my-4">
+                            <h5 class="card-header">Add and Email reply:</h5>
+                            <div class="card-body">
+                                <form th:action="@{/reply}" method="post">
+                                    <div class="form-group">
+                                        <textarea name="content" class="form-control" rows="3" minlength="5" maxlength="1024"
+                                            data-length="1024" required="required"></textarea>
+                                        <input type="hidden" name="id_post" th:value="${post.getId()}"/>
+                                        <input type="hidden" name="id_user" th:value="${idUser}"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Send Reply</button>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Single Comment -->
+                    <hr>
+                    <article class="row" th:each="reply : ${replys}" >
+                        <div class="media mb-4" >
+                            <div class="media-body">
+                                <h5 class="mt-0" th:text="${reply.getUser().getUsername()} + | replied on |+ ${reply.displayParsedCreatedDate()}"> </h5>
+                                <p th:text="${reply.getContent()}" > </p>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-lg-4">
+                    <!-- Search Widget -->
+                    <div class="card my-4" th:replace="layout :: search"></div>
+                    <!-- Categories Widget -->
+                    <div class="card my-4" th:replace="layout :: category"></div>
+                    <!-- Location Widget -->
+              		<div class="" th:replace="layout :: location"></div>
+                	<!-- Status Widget -->
+              		<div class="" th:replace="layout :: status"></div>
+
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+        <!-- Footer -->
+        <footer th:replace="layout :: footer"></footer>
+    </body>
+</html>

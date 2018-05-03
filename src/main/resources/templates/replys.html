@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout :: head" ></head>
+    <body>
+        <script>
+            document.title = "Sellauto Reply";
+        </script>
+        <!-- Navigation -->
+        <nav th:replace="layout :: nav"></nav>
+        <!-- Page Content -->
+        <div class="container car_container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h4 th:text="|Replys : | + ${replys.size()}"></h4>
+                    <div class="table-responsive">
+                        <table id="mytable" class="table table-bordred table-striped" th:if="${replys.size() != 0}">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Title</th>
+                                    <th>Replied On</th>
+                                    <th>Content</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <th:block th:each="reply : ${replys}">
+                                    <tr>
+                                        <td th:text="${reply.getPost().getCategory()}">Post's category</td>
+                                        <td th:text="${reply.getPost().getTitle()}">Post's title</td>
+                                        <td th:text="${reply.displayParsedCreatedDate()}">Reply date</td>
+                                        <td th:text="${reply.displayBeginning()}">Reply Content</td>
+                                        <td><a th:href="@{'/post/' + ${reply.getPost().getId()}}" >Read More </a></td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                    <section class="row">
+                        <div class="col s12">
+                            <div th:if="${replys.size() == 0}">
+                                <p class="flow-text center">No Replys</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-lg-4">
+                    <!-- Search Widget -->
+                    <div class="card my-4" th:replace="layout :: search"></div>
+                    <!-- Categories Widget -->
+                    <div class="card my-4" th:replace="layout :: category"></div>
+                    <!-- Location Widget -->
+              		<div class="" th:replace="layout :: location"></div>
+                	<!-- Status Widget -->
+              		<div class="" th:replace="layout :: status"></div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+        <!-- Footer -->
+        <footer th:replace="layout :: footer"></footer>
+    </body>
+</html>

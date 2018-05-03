@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout :: head" ></head>
+    <body>
+        <script>
+            document.title = "Sellauto Posts";
+            
+        </script>
+        <!-- Navigation -->
+        <nav th:replace="layout :: nav"></nav>
+        <div class="container car_container">
+            <div class="row">
+                <!-- Page Content -->
+                <div class="col-lg-8">
+                    <h4 th:text="${header}+| Posts: | + ${posts.size()}"></h4>
+                                       
+                    <div class="table-responsive">
+                        <table id="mytable" class="table table-bordred table-striped" th:if="${posts.size() != 0}" >
+                            <thead>
+                                <tr>
+                                    <th>PostId</th>
+                                    <th>Posted By</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Posted On</th>
+                                    <th>Located At</th>
+                                    <th>Reply</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <th:block th:each="post : ${posts}">
+                                <tr>
+                                    <td> <a th:href="@{'/post/' + ${post.getId()}}" th:text="${post.getId()}" >Post Id</a>  </td>
+                                    <td> <a th:href="@{'/posts/user/' + ${post.getUser().getId()}}"
+                                        th:text="${post.getUser().getUsername()}">Post's author</a> </td>
+                                    <td th:text="${post.getTitle()}">Post's title</td>
+                                    <td> <a th:href="@{'/posts/'+ ${post.getCategory()} +'/'+ ${post.getStatus()}}" th:text="${post.getStatus()}">Post's Status </a> </td>
+                                    <td th:text="${post.displayParsedCreatedDate()}">Post's created date</td>
+                                    <td> <a th:href="@{'/posts/' + ${post.getCategory()}+'/'+${post.getStatus()}+'/'+${post.getUser().getLocation()}}" th:text="${post.getUser().getLocation()}" >Location</a> </td>
+                                    <td th:text="${replyRepository.countReplysByPost_Id(post.getId())}">Number of reply</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-lg-4">
+                    <!-- Search Widget -->
+                    <div class="card my-4" th:replace="layout :: search"></div>
+                    <!-- Categories Widget -->
+                    <div class="card my-4" th:replace="layout :: category"></div>
+                    <!-- Location Widget -->
+              		<div class="" th:replace="layout :: location"></div>
+                	<!-- Status Widget -->
+              		<div class="" th:replace="layout :: status"></div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+        <!-- Footer -->
+        <footer th:replace="layout :: footer"></footer>
+    </body>
+</html>

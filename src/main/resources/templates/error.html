@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+   <head th:replace="layout :: head" ></head>
+   <body>
+      <script>
+         document.title = "Sellauto Error";
+      </script>
+      <!-- Navigation -->
+      <nav th:replace="layout :: nav"></nav>
+      <!-- Page Content -->
+      <section class="row">
+         <div class="col s12">
+            <h1 class="flow-text center">Error</h1>
+            <p class="center">This is not the web page you are looking for.
+            </p>
+            <div th:if="${message}">
+               <h5 th:text="${message}" style="color:red" ></h5>
+            </div>
+         </div>
+      </section>
+      <!-- Footer -->
+      <footer th:replace="layout :: footer"></footer>
+   </body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <!-- Custom Styles -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/mystyles.css}">
+    </head>
+    <body>
+        <!-- Navigation -->
+        <div th:fragment="nav">
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="#" th:href="@{'/'}" >UCMSellAuto</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" th:href="@{'/login'}" >Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!" th:href="@{'/register'}" >Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!" th:href="@{'/profile'}" >My Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!" th:href="@{'/logout'}" >Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+               
+                <!-- Sidebar Widgets Column -->
+                
+                <!-- Search Widget -->
+                <div class="card my-4" th:fragment="search">
+                    <h5 class="card-header">Search</h5>
+                    <div class="card-body">
+                    	<form th:action="@{'/post/search/'} + ${id}"  method="get">
+                        	<div class="input-group">                                
+                                <input type="number" th:name = "id" class="form-control" placeholder="Search for PostId...">
+                                <span class="input-group-btn">
+                                	<button class="btn btn-secondary" type="submit">Go!</button>
+                                </span>                                
+                       	 	</div>
+                        </form>
+                    </div>
+                </div>
+               
+                <!-- Categories Widget -->
+
+                <div class="card my-4" th:fragment = "category">
+                    <h5 class="card-header">Categories</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#" th:href="@{'/posts'}">All</a></li>
+                                    <li><a href="#" th:href="@{'/posts/1'}">1.Automobiles</a></li>
+                                    <li><a href="#" th:href="@{'/posts/2'}">2.Real Estate</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#" th:href="@{'/posts/3'}">3.Household Items</a></li>
+                                    <li><a href="#" th:href="@{'/posts/4'}">4.Electronics</a></li>
+                                    <li><a href="#" th:href="@{'/posts/5'}">5.Miscellaneous Items</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status Widget -->
+
+                <div class="card my-4" th:fragment = "status">
+                    <h5 class="card-header">Status</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#" th:href="@{'/posts/status/Open'}">Open</a></li>
+                                    <li><a href="#" th:href="@{'/posts/status/Sold'}">Sold</a></li>
+                             	</ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Location Widget -->
+
+                <div class="card my-4" th:fragment = "location">
+                    <h5 class="card-header">Location</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#" th:href="@{'/posts/location/Warrensburg'}">Warrensburg</a></li>
+                                    <li><a href="#" th:href="@{'/posts/location/Lee Summit'}">Lee Summit</a></li>
+                                    <li><a href="#" th:href="@{'/posts/location/Kansas'}">Kansas</a></li>
+                             	</ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- /.container -->
+        <!-- Footer -->
+        <footer th:fragment="footer" class="bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; SellAuto 2018</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout :: head" ></head>
+    <body>
+        <script>
+            document.title = "Sellauto Profile";
+        </script>
+        <!-- Navigation -->
+        <nav th:replace="layout :: nav"></nav>
+        <!-- Page Content -->
+        <div class="container car_container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3 class="site-title">My Profile</h3>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                <strong th:text="${user.getUsername().toUpperCase()}"></strong><br>
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>Registered since:</td>
+                                            <td th:text="${user.displayParsedDate()}" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Located At:</td>
+                                            <td th:text="${user.getLocation()}" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td>My Posts</td>
+                                            <td> <a th:href="@{'/posts/user/' + ${user.getId()}}" th:text="${numberOfPosts}"> </a> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>My Reply</td>
+                                            <td> <a th:href="@{'/replys/' + ${user.getId()}}" th:text="${numberOfReplys}"> </a> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <form th:action="@{'/profile/remove/' + ${user.getId()}}" method="post" >
+                                <button type="submit" class="btn btn-info btn-md float-right"> Delete Profile</button>
+                            </form>
+                        </div>
+                    </div>
+                    <form th:action="@{/post}" method="post"  enctype="multipart/form-data" >
+                        <fieldset class="form-group">
+                            <legend >Select category and add post</legend>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="1" name="category" id="1" required="required">
+                                Automobiles
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="2" name="category" id="2" required="required">
+                                Real Estate
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="3" name="category" id="3" required="required">
+                                Household Items
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="4" name="category" id="4" required="required">
+                                Electronics
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="5" name="category" id="5" required="required">
+                                Miscellaneous Items
+                                </label>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label><b>Title</b></label>
+                            <input  type="text" class="form-control" name="title" placeholder="Enter Title"  minlength="5" maxlength="32" data-length="32">
+                            <small class="form-text text-muted">Please enter a title with alteast 5 characters.</small>
+                        </div>
+                        <div class="form-group">
+                            <label><b>Content</b></label>
+                            <textarea class="form-control" name="content" rows="3" minlength="5" maxlength="1024" placeholder="Enter description" 
+                                data-length="1024" required="required" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><b>Upload Image</b></label>
+                            <input type="file" class="form-control-file" name="file" accept="image/*">
+                            <small id="fileHelp" class="form-text text-muted"> Please upload image files only</small>
+                        </div>
+                        <fieldset class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="open" name="status" id="open" required="required" checked="checked">
+                                	Open
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" value="sold" name="status" id="sold" required="required" >
+                                	Sold
+                                </label>
+                            </div>
+                        </fieldset>
+                        <input type="hidden" name="id_user" th:value="${user.getId()}"/>
+                        <button type="submit" class="btn btn-primary">Add Post</button>
+                    </form>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-lg-4">
+                    <!-- Search Widget -->
+                    <div class="" th:replace="layout :: search"></div>
+                    <!-- Categories Widget -->
+                    <div class="" th:replace="layout :: category"></div>
+                    <!-- Location Widget -->
+              		<div class="" th:replace="layout :: location"></div>
+                	<!-- Status Widget -->
+              		<div class="" th:replace="layout :: status"></div>                    
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- /.container -->
+        <!-- Footer -->
+        <footer th:replace="layout :: footer"></footer>
+    </body>
+</html>

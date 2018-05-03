@@ -1,0 +1,40 @@
+/*! * * @author Anu * */
+
+ body {
+    padding-top: 54px;
+    padding-bottom: 54px;
+}
+ footer{
+    padding:10px 0;
+    height:50px;
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:0;
+}
+ .car_container {
+    padding-top:1.5em;
+    padding-bottom:1.5em;
+    font-size:0.9rem;
+}
+ .car_login{
+    padding:2em 0;
+}
+ .car_error{
+    font-size:0.9em;
+    font-style:italic;
+    color:#ff0000;
+}
+.table.table-user-information td, .table.table-user-information th{
+	padding:0.75em 0;
+}
+
+
+
+@media (min-width: 992px) {
+    body {
+         padding-top: 56px;
+    }
+    
+}
+ 
